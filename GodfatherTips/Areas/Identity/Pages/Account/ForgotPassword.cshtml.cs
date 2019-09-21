@@ -29,8 +29,8 @@ namespace GodfatherTips.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "{0} adresa je obavezna")]
+            [EmailAddress(ErrorMessage = "{0} adresa nije validna")]
             public string Email { get; set; }
         }
 
@@ -56,8 +56,8 @@ namespace GodfatherTips.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Resetujte šifru",
+                    $"Molimo vas resetujte šifru na sledećem linku <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'></a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
