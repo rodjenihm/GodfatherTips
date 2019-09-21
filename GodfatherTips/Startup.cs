@@ -14,6 +14,9 @@ using GodfatherTips.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GodfatherTips.Data.Models;
+using GodfatherTips.Utilities;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using GodfatherTips.Services;
 
 namespace GodfatherTips
 {
@@ -52,6 +55,9 @@ namespace GodfatherTips
                  .AddEntityFrameworkStores<ApplicationDbContext>()
                  .AddRoles<IdentityRole>()
                  .AddDefaultTokenProviders();
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
