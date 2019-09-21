@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GodfatherTips", "GodfatherTips\GodfatherTips.csproj", "{524B3DDF-1D16-4A62-B926-9404B49A0D9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{524B3DDF-1D16-4A62-B926-9404B49A0D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{524B3DDF-1D16-4A62-B926-9404B49A0D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{524B3DDF-1D16-4A62-B926-9404B49A0D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{524B3DDF-1D16-4A62-B926-9404B49A0D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D1D001C-9EF4-462B-9DFF-77DBDB0CB9AE}
+	EndGlobalSection
+EndGlobal
