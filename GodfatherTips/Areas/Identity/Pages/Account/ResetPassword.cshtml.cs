@@ -26,18 +26,21 @@ namespace GodfatherTips.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "{0} adresa je obavezna")]
+            [EmailAddress(ErrorMessage = "Email adresa nije validna")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+
+            [Required(ErrorMessage = "{0} je obavezna")]
+            [StringLength(30, ErrorMessage = "{0} mora biti najmanje {2} a najviše {1} karaktera dugačka", MinimumLength = 6)]
             [DataType(DataType.Password)]
+            [Display(Name = "Šifra")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Potvrdite šifru")]
+            [Compare("Password", ErrorMessage = "Šifre se ne podudaraju")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
@@ -47,7 +50,7 @@ namespace GodfatherTips.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest("Za resetovanje šifre potreban je verifikacioni token");
             }
             else
             {
