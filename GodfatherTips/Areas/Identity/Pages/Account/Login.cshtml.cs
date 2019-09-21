@@ -37,15 +37,16 @@ namespace GodfatherTips.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "{0} adresa je obavezna")]
+            [EmailAddress(ErrorMessage = "{0} adresa nije validna")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "{0} je obavezna")]
             [DataType(DataType.Password)]
+            [Display(Name = "Šifra")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Zapamti me?")]
             public bool RememberMe { get; set; }
         }
 
@@ -91,7 +92,7 @@ namespace GodfatherTips.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Neuspešan pokupaj prijave");
                     return Page();
                 }
             }
