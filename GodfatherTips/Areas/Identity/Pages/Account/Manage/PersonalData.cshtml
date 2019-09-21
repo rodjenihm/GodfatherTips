@@ -1,0 +1,27 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Podaci naloga";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<div class="row text-center justify-content-center">
+    <div class="col-md-6">
+        <p>
+            <strong>Preuzmite podatke</strong>
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post" class="form-group">
+            <button class="btn btn-primary" type="submit">Preuzmi</button>
+        </form>
+        <p>
+            <strong>Obrišite podatke i nalog</strong>
+        </p>
+        <p>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-primary">Izbriši</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
