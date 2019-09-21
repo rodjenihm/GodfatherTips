@@ -14,4 +14,3 @@ namespace GodfatherTips.Areas.Identity.Pages.Account
         }
     }
 }
-
