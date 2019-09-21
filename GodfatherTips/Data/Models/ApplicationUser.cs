@@ -11,11 +11,11 @@ namespace GodfatherTips.Data.Models
     {
         public string Nickname { get; set; }
 
-        public Role Role { get; set; }
+        public Role Role { get; set; } = Role.Member;
 
-        public bool IsVipMember { get; set; }
+        public bool IsVipMember { get; set; } = false;
 
-        public DateTime RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
 
         public DateTime VipMembershipExpirationDate { get; set; }
 
