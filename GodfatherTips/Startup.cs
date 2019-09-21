@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using GodfatherTips.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using GodfatherTips.Data.Models;
 
 namespace GodfatherTips
 {
@@ -38,9 +39,19 @@ namespace GodfatherTips
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+
+            })
+                 .AddDefaultUI(UIFramework.Bootstrap4)
+                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                 .AddRoles<IdentityRole>()
+                 .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
