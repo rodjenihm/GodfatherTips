@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3 text-center justify-content-center">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-md-9 text-center justify-content-center">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
