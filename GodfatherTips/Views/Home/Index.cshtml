@@ -1,8 +1,32 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Početna";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="text-center justify-content-center">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @*<div>
+                <div class="card my-4">
+                    <h5 class="card-header">Leave a Comment:</h5>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>*@
+    }
+    else
+    {
+        <h1 class="display-4">Dobrodošli na GodfatherTips!</h1>
+        <h5>Prijavite se kako biste pristupili sadržajima sajta.</h5>
+        <h5>Ukoliko nemate nalog možete registrovati novi potpuno besplatno. Potrebna vam je samo validna email adresa.</h5>
+        <h5>Nakon registracije potrebno je verifikovati nalog putem linka koji ćete dobiti na email.</h5>
+    }
 </div>
