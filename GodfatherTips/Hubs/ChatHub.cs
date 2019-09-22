@@ -9,7 +9,7 @@ namespace GodfatherTips.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(Post post) =>
-            await Clients.All.SendAsync("receiveMessage", post);
+        public async Task SendMessage(Post message) =>
+            await Clients.All.SendAsync("receiveMessage", message);
     }
 }
