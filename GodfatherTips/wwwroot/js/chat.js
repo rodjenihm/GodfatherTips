@@ -11,14 +11,14 @@
 // userName is declared in razor page.
 const username = userName;
 const textInput = document.getElementById('messageText');
-const whenInput = document.getElementById('creationDate');
+const creationDateInput = document.getElementById('creationDate');
 const chat = document.getElementById('chat');
 const messagesQueue = [];
 
 document.getElementById('submitButton').addEventListener('click', () =>
 {
     var currentdate = new Date();
-    when.innerHTML =
+    creationDate.innerHTML =
         (currentdate.getMonth() + 1) + "/"
         + currentdate.getDate() + "/"
         + currentdate.getFullYear() + " "
@@ -36,7 +36,7 @@ function sendMessage()
     let text = messagesQueue.shift() || "";
     if (text.trim() === "") return;
 
-    let when = new Date();
+    let creationDate = new Date();
     let message = new Message(username, text);
     sendMessageToHub(message);
 }
@@ -54,10 +54,10 @@ function addMessageToChat(message)
     let text = document.createElement('p');
     text.innerHTML = message.text;
 
-    let when = document.createElement('span');
-    when.className = isCurrentUserMessage ? "time-left" : "time-right";
+    let creationDate = document.createElement('span');
+    creationDate.className = isCurrentUserMessage ? "time-left" : "time-right";
     var currentdate = new Date();
-    when.innerHTML =
+    creationDate.innerHTML =
         (currentdate.getMonth() + 1) + "/"
         + currentdate.getDate() + "/"
         + currentdate.getFullYear() + " "
@@ -65,7 +65,7 @@ function addMessageToChat(message)
 
     container.appendChild(sender);
     container.appendChild(text);
-    container.appendChild(when);
+    container.appendChild(creationDate);
 
     chat.appendChild(container);
 }
