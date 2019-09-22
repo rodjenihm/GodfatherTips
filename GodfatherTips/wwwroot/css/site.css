@@ -76,7 +76,7 @@ body {
 /* Darker chat container */
 #chat .darker {
     border-color: #fff;
-    background-color: #007bff;
+    background-color: #03fc98;
 }
 
 /* Clear floats */
@@ -95,12 +95,12 @@ body {
     border-radius: 50%;
 }
 
-    /* Style the right image */
-    #chat .container img.right {
-        float: right;
-        margin-left: 20px;
-        margin-right: 0;
-    }
+ /* Style the right image */
+ #chat .container img.right {
+     float: right;
+     margin-left: 20px;
+     margin-right: 0;
+ }
 
 /* Style time text */
 #chat .time-right {

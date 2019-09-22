@@ -22,7 +22,7 @@ document.getElementById('submitButton').addEventListener('click', () =>
         (currentdate.getMonth() + 1) + "/"
         + currentdate.getDate() + "/"
         + currentdate.getFullYear() + " "
-        + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 });
 
 function clearInputField()
@@ -45,26 +45,42 @@ function addMessageToChat(message)
 {
     let isCurrentUserMessage = message.userName === username;
 
+    let containerClass = isCurrentUserMessage ? "container darker bg-primary" : "container bg-light";
+    let textAlign = isCurrentUserMessage ? "sender text-right text-white" : "sender text-left";
+    let timePosition = isCurrentUserMessage ? "time-right text-light" : "time-left";
+    let offset = isCurrentUserMessage ? "col-md-6 offset-md-6" : "";
+
+    let divrow = document.createElement('div');
+    divrow.className = "row";
+
+    let divoffset = document.createElement('div');
+    divoffset.className = offset;
+
     let container = document.createElement('div');
-    container.className = isCurrentUserMessage ? "container darker" : "container";
+    container.className = containerClass;
 
     let sender = document.createElement('p');
-    sender.className = "sender";
+    sender.className = textAlign;
     sender.innerHTML = message.userName;
+
     let text = document.createElement('p');
     text.innerHTML = message.text;
+    text.classList = textAlign;
 
     let creationDate = document.createElement('span');
-    creationDate.className = isCurrentUserMessage ? "time-left" : "time-right";
+    creationDate.className = timePosition;
+
     var currentdate = new Date();
-    creationDate.innerHTML = 
+    creationDate.innerHTML =
         (currentdate.getMonth() + 1) + "/"
         + currentdate.getDate() + "/"
         + currentdate.getFullYear() + " "
-        + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
     container.appendChild(sender);
     container.appendChild(text);
     container.appendChild(creationDate);
-    chat.appendChild(container);
+    divoffset.appendChild(container);
+    divrow.appendChild(divoffset);
+    chat.appendChild(divrow);
 }
