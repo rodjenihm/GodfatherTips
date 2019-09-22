@@ -6,15 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GodfatherTips.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GodfatherTips.Data.Models;
 
 namespace GodfatherTips.Controllers
 {
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public HomeController(UserManager<ApplicationUser> userManager)
         {
-            return View();
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _userManager.GetUserAsync(User));
         }
 
         public IActionResult Contact()

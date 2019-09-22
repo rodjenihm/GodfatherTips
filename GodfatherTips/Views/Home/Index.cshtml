@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
+@model ApplicationUser
 @{
     ViewData["Title"] = "Početna";
 }
@@ -8,19 +9,8 @@
 <div class="text-center justify-content-center">
     @if (SignInManager.IsSignedIn(User))
     {
-        @*<div>
-                <div class="card my-4">
-                    <h5 class="card-header">Leave a Comment:</h5>
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <textarea class="form-control" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>*@
+        <h1>Dobrodošli @Model.Nickname!</h1>
+        <h4>Želimo vam ugodan boravak na sajtu.</h4>
     }
     else
     {
