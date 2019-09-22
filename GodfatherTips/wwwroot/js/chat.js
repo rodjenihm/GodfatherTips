@@ -35,7 +35,7 @@ function sendMessage()
 {
     let text = messagesQueue.shift() || "";
     if (text.trim() === "") return;
-
+    
     let creationDate = new Date();
     let message = new Message(username, text);
     sendMessageToHub(message);
@@ -57,7 +57,7 @@ function addMessageToChat(message)
     let creationDate = document.createElement('span');
     creationDate.className = isCurrentUserMessage ? "time-left" : "time-right";
     var currentdate = new Date();
-    creationDate.innerHTML =
+    creationDate.innerHTML = 
         (currentdate.getMonth() + 1) + "/"
         + currentdate.getDate() + "/"
         + currentdate.getFullYear() + " "
@@ -66,6 +66,5 @@ function addMessageToChat(message)
     container.appendChild(sender);
     container.appendChild(text);
     container.appendChild(creationDate);
-
     chat.appendChild(container);
 }

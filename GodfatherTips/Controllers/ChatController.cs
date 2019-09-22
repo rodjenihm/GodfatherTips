@@ -31,7 +31,7 @@ namespace GodfatherTips.Controllers
             return View(posts);
         }
 
-        public async Task<IActionResult> Create(Post post)
+        public async Task<IActionResult> CreatePost(Post post)
         {
             if (ModelState.IsValid)
             {

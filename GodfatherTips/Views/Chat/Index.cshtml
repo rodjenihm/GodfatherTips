@@ -57,7 +57,7 @@
                         <input name="Text" class="form-control" id="messageText" />
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Send" id="submitButton" class="btn btn-outline-primary btn-block" />
+                        <input type="submit" value="Pošalji" id="submitButton" class="btn btn-outline-primary btn-block" />
                     </div>
                     <input type="hidden" value="@userName" name="username" />
                 </form>
@@ -74,9 +74,9 @@
 
 
     @section scripts {
-        <script src="~/signalr/signalr.min.js"></script>
+        <script src="~/lib/signalr/signalr.min.js"></script>
         <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
         <script src="~/js/chat.js"></script>
-        <script src="~/js/signalrReqHandler.js"></script>
+        <script src="~/js/signalrRequestHandler.js"></script>
     }
 </div>

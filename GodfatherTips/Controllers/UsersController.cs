@@ -17,12 +17,10 @@ namespace GodfatherTips.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _dbContext;
 
-        public UsersController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
+        public UsersController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _dbContext = dbContext;
         }
 
         // GET: Users

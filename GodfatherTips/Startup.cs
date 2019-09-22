@@ -89,7 +89,7 @@ namespace GodfatherTips
 
             app.UseSignalR(route =>
             {
-                route.MapHub<ChatHub>("/Chat");
+                route.MapHub<ChatHub>("/Chat/Index");
             });
 
             app.UseMvc(routes =>
