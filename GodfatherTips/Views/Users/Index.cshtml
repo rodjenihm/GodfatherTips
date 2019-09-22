@@ -18,7 +18,7 @@
             @foreach (var user in Model)
             {
                 <tr>
-                    <th scope="row">@user.Email</th>
+                    <th scope="row"><a asp-action="Details" asp-route-id="@user.Id">@user.Email</a></th>
                     <td>@user.Nickname</td>
 
                     @if (!user.IsVipMember)

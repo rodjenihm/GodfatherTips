@@ -50,7 +50,6 @@ namespace GodfatherTips
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
-
             })
                  .AddDefaultUI(UIFramework.Bootstrap4)
                  .AddEntityFrameworkStores<ApplicationDbContext>()

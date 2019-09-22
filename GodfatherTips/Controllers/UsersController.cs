@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GodfatherTips.Data;
 using GodfatherTips.Data.Models;
 using GodfatherTips.Utilities;
 using Microsoft.AspNetCore.Authorization;
@@ -16,10 +17,12 @@ namespace GodfatherTips.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _dbContext;
 
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
         {
             _userManager = userManager;
+            _dbContext = dbContext;
         }
 
         // GET: Users
@@ -41,9 +44,13 @@ namespace GodfatherTips.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(string id)
         {
-            return View();
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                return NotFound();
+
+            return View(user);
         }
 
 
