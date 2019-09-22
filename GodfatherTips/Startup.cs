@@ -17,6 +17,7 @@ using GodfatherTips.Data.Models;
 using GodfatherTips.Utilities;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using GodfatherTips.Services;
+using GodfatherTips.Hubs;
 
 namespace GodfatherTips
 {
@@ -59,6 +60,8 @@ namespace GodfatherTips
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
+            services.AddSignalR();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -84,6 +87,11 @@ namespace GodfatherTips
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSignalR(route =>
+            {
+                route.MapHub<ChatHub>("/Home/Index");
+            });
 
             app.UseMvc(routes =>
             {
