@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GodfatherTips.Data;
 using GodfatherTips.Data.Models;
+using GodfatherTips.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,14 +32,18 @@ namespace GodfatherTips.Controllers
             return View(posts);
         }
 
-        public async Task<IActionResult> CreatePost(Post post)
+        public async Task<IActionResult> CreatePost(CreatePostViewModel post)
         {
             if (ModelState.IsValid)
             {
-                post.UserName = User.Identity.Name;
                 var sender = await _userManager.GetUserAsync(User);
-                post.AuthorId = sender.Id;
-                await _context.Posts.AddAsync(post);
+                var newPost = new Post
+                {
+                    UserName = User.Identity.Name,
+                    Text = post.Text,
+                    AuthorId = sender.Id
+                };
+                await _context.Posts.AddAsync(newPost);
                 await _context.SaveChangesAsync();
                 return Ok();
             }
