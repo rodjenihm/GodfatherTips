@@ -4,79 +4,73 @@
     var userName = User.Identity.Name;
 }
 
-<div class="text-capitalize justify-content-center">
-    <div class="jumbotron bg-light">
-        <h2 class="text-center text-primary">
-            <i></i>&nbsp; Ćaskanje
-        </h2>
+<
+<script>
+    window.onload = function () {
+        var objDiv = document.getElementById("messageText");
+        objDiv.focus();
+    }
+</script>
+<div class="chat card h-100 my-4">
+    <div class="card-body msg_card_body h-100">
+        @if (Model != null)
+        {
+            <div id="chat">
 
-        <div class="row">
-            <div class="col-md-12" id="chat">
-                @if (Model != null)
+                @foreach (var post in Model.OrderBy(p => p.CreationDate))
                 {
-                    @foreach (var post in Model.OrderBy(p => p.CreationDate))
+                    string container, justify, time;
+                    if (userName == post.UserName)
                     {
-                        string containerClass, timePosition, textAlign, contcolor, offset;
-                        if (userName == post.UserName)
-                        {
-                            containerClass = "container darker";
-                            timePosition = "time-right text-light";
-                            textAlign = "text-right text-white";
-                            contcolor = "bg-primary";
-                            offset = "col-md-6 offset-md-6";
-                        }
-                        else
-                        {
-                            containerClass = "container";
-                            timePosition = "time-left";
-                            textAlign = "text-left";
-                            contcolor = "bg-light";
-                            offset = "";
-                        }
-
-                        <div class="row">
-                            <div class="@offset">
-                                <div class="@containerClass @contcolor">
-
-                                    <p class="sender @textAlign">@post.UserName</p>
-                                    <p class="@textAlign">@post.Text</p>
-                                    <span class="@timePosition" id="creationDate">@post.CreationDate.ToString("M/dd/yyyy hh:MM tt")</span>
-                                </div>
-                            </div>
-                        </div>
+                        container = "msg_cotainer_send";
+                        justify = "justify-content-end";
+                        time = "msg_time_send";
                     }
+                    else
+                    {
+                        container = "msg_cotainer";
+                        justify = "justify-content-begin";
+                        time = "msg_time";
+                    }
+
+                    <div class="d-flex @justify mb-4">
+                        <div class="@container">
+                            <i style="color: darkred">@post.UserName</i>
+                            <p>@post.Text</p>
+                            <span class="@time" id="creationDate">@post.CreationDate.ToString("M/dd/yyyy hh:MM tt")</span>
+                        </div>
+                    </div>
                 }
             </div>
-            <div class="col-md-12">
-                <form asp-action="CreatePost"
-                      data-ajax-begin="clearInputField" data-ajax-complete=""
-                      data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
-                      data-ajax="true" data-ajax-method="POST">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <input name="Text" class="form-control" id="messageText" />
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Pošalji" id="submitButton" class="btn btn-outline-primary btn-block" />
-                    </div>
-                    <input type="hidden" value="@userName" name="username" />
-                </form>
-            </div>
+        }
+
+        <div class="card-footer">
+            <form class="input-group" asp-action="CreatePost"
+                  data-ajax-begin="clearInputField" data-ajax-complete=""
+                  data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
+                  data-ajax="true" data-ajax-method="POST">
+                <div asp-validation-summary="ModelOnly" class="input-group-append text-danger"></div>
+                <input name="Text" class="form-control type_msg" id="messageText" autocomplete="off" />
+                <div class="input-group-append">
+                    <input type="submit" value="Pošalji" id="submitButton" class="input-group-text send_btn" />
+                </div>
+                <input type="hidden" value="@userName" name="username" />
+            </form>
         </div>
 
     </div>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <script>
-        const userName = "@ViewBag.CurrentUserName";
-        </script>
-    }
-
-
-    @section scripts {
-        <script src="~/lib/signalr/signalr.min.js"></script>
-        <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
-        <script src="~/js/chat.js"></script>
-        <script src="~/js/signalrRequestHandler.js"></script>
-    }
 </div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+        const userName = "@ViewBag.CurrentUserName";
+    </script>
+}
+
+@section scripts {
+    <script src="~/lib/signalr/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/signalrRequestHandler.js"></script>
+}
