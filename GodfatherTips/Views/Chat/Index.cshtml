@@ -4,11 +4,10 @@
     var userName = User.Identity.Name;
 }
 
-<
 <script>
     window.onload = function () {
-        var objDiv = document.getElementById("messageText");
-        objDiv.focus();
+        var objText = document.getElementById("messageText");
+        objText.focus();
     }
 </script>
 <div class="chat card h-100 my-4">
@@ -22,13 +21,13 @@
                     string container, justify, time;
                     if (userName == post.UserName)
                     {
-                        container = "msg_cotainer_send";
+                        container = "msg_container_send";
                         justify = "justify-content-end";
                         time = "msg_time_send";
                     }
                     else
                     {
-                        container = "msg_cotainer";
+                        container = "msg_container";
                         justify = "justify-content-begin";
                         time = "msg_time";
                     }
