@@ -1,6 +1,6 @@
 # GodfatherTips
 GodfatherTips: ASP.NET Core 2.2 MVC webapp  
-Aplikacija simulira jedan jednostavan tipsterski sajt gde korisnici mogu da se registruju, prijave, prave svoje tipove, čitaju tipove drugih korisnika.  
+Aplikacija simulira jedan jednostavan tipsterski sajt gde korisnici mogu da se registruju, prijave, prave svoje tipove, čitaju tipove drugih korisnika, ćaskaju...   
 Postoje tri vrste korisnika. Member, PaidMember i Admin.  
 Member može pristupiti besplatnim tipovima.  
 PaidMember može pristupiti besplatnim i plaćenim tipovima.  
