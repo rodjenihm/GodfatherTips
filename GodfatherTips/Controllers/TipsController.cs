@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GodfatherTips.Data;
 using GodfatherTips.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GodfatherTips.Controllers
 {
@@ -20,6 +21,7 @@ namespace GodfatherTips.Controllers
         }
 
         // GET: Tips
+        [Authorize(Roles = "Admin, Vip")]
         public async Task<IActionResult> Index()
         {
             var tips = _dbContext.Tips.Include(t => t.Author);
@@ -27,6 +29,7 @@ namespace GodfatherTips.Controllers
         }
 
         // GET: Tips/Details/5
+        [Authorize(Roles = "Admin, Vip")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +49,7 @@ namespace GodfatherTips.Controllers
         }
 
         // GET: Tips/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["AuthorId"] = new SelectList(_dbContext.Users, "Id", "Id");
@@ -56,6 +60,7 @@ namespace GodfatherTips.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nickname,Text,AuthorId,CreationDate")] Tip tip)
         {
@@ -70,6 +75,7 @@ namespace GodfatherTips.Controllers
         }
 
         // GET: Tips/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,6 +96,7 @@ namespace GodfatherTips.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nickname,Text,AuthorId,CreationDate")] Tip tip)
         {
@@ -123,6 +130,7 @@ namespace GodfatherTips.Controllers
         }
 
         // GET: Tips/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,6 +151,7 @@ namespace GodfatherTips.Controllers
 
         // POST: Tips/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
