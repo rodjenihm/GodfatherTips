@@ -18,11 +18,13 @@ namespace GodfatherTips.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Post>()
-                .HasOne<ApplicationUser>(a => a.Author)
+                .HasOne(a => a.Author)
                 .WithMany(d => d.Posts)
                 .HasForeignKey(d => d.AuthorId);
         }
 
         public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Tip> Tips { get; set; }
     }
 }
