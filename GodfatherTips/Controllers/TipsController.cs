@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GodfatherTips.Data;
 using GodfatherTips.Data.Models;
 using Microsoft.AspNetCore.Authorization;
+using GodfatherTips.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace GodfatherTips.Controllers
 {
@@ -15,16 +17,19 @@ namespace GodfatherTips.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public TipsController(ApplicationDbContext context)
+        public readonly UserManager<ApplicationUser> _userManager;
+
+        public TipsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _dbContext = context;
+            _userManager = userManager;
         }
 
         // GET: Tips
         [Authorize(Roles = "Admin, Vip")]
         public async Task<IActionResult> Index()
         {
-            var tips = _dbContext.Tips.Include(t => t.Author);
+            var tips = _dbContext.Tips.Include(t => t.Author).OrderByDescending(t => t.CreationDate);
             return View(await tips.ToListAsync());
         }
 
@@ -62,16 +67,23 @@ namespace GodfatherTips.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nickname,Text,AuthorId,CreationDate")] Tip tip)
+        public async Task<IActionResult> Create(CreateTipViewModel tip)
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Add(tip);
+                var user = await _userManager.GetUserAsync(User);
+                var newTip = new Tip
+                {
+                    Author = user,
+                    AuthorId = user.Id,
+                    CreationDate = DateTime.UtcNow,
+                    Nickname = user.Nickname,
+                    Text = tip.Text
+                };
+                _dbContext.Add(newTip);
                 await _dbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_dbContext.Users, "Id", "Id", tip.AuthorId);
-            return View(tip);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Tips/Edit/5

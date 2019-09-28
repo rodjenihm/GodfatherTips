@@ -1,53 +1,40 @@
-﻿@model IEnumerable<GodfatherTips.Data.Models.Tip>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@model IEnumerable<Tip>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tipovi";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nickname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Text)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nickname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div>
+    <div class="card-footer">
+        <form class="input-group" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="input-group-append text-danger"></div>
+            @*<input name="Text" class="form-control type_msg" autocomplete="off" multiple />*@
+            <textarea name="Text" class="form-control type_msg" style="min-height: 200px;"></textarea>
+            <div class="input-group-append">
+                <input type="submit" value="Dodaj tip" class="input-group-text send_btn" />
+            </div>
+        </form>
+    </div>
+
+    @foreach (var tip in Model)
+    {
+        <hr />
+        <div class="card">
+            <div class="d-flex card-body msg_card_body">
+                <div>
+                    <i style="color: yellowgreen">@tip.Nickname</i>
+                    <p>@tip.Text</p>
+                    <span style="color: white">@tip.CreationDate.ToString("M/dd/yyyy hh:MM tt")</span>
+                </div>
+            </div>
+            <div class="text-right py-2">
+                <form asp-action="Delete" asp-route-id="@tip.Id">
+                    <input type="submit" value="Obriši" class="btn btn-danger" /> &nbsp;
+                </form>
+            </div>
+        </div>
+    }
+</div>
