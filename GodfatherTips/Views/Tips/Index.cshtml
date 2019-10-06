@@ -8,16 +8,19 @@
 
 
 <div>
-    <div class="card-footer">
-        <form class="input-group" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="input-group-append text-danger"></div>
-            @*<input name="Text" class="form-control type_msg" autocomplete="off" multiple />*@
-            <textarea name="Text" class="form-control type_msg" style="min-height: 200px;"></textarea>
-            <div class="input-group-append">
-                <input type="submit" value="Dodaj tip" class="input-group-text send_btn" />
-            </div>
-        </form>
-    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="card-footer">
+            <form class="input-group" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="input-group-append text-danger"></div>
+                @*<input name="Text" class="form-control type_msg" autocomplete="off" multiple />*@
+                <textarea name="Text" class="form-control type_msg" style="min-height: 200px;"></textarea>
+                <div class="input-group-append">
+                    <input type="submit" value="Dodaj tip" class="input-group-text send_btn" />
+                </div>
+            </form>
+        </div>
+    }
 
     @foreach (var tip in Model)
     {
@@ -26,15 +29,21 @@
             <div class="d-flex card-body msg_card_body">
                 <div>
                     <i style="color: yellowgreen">@tip.Nickname</i>
-                    <p>@tip.Text</p>
+                    @foreach (var line in tip.Text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        <p>@line</p>
+                    }
                     <span style="color: white">@tip.CreationDate.ToString("M/dd/yyyy hh:MM tt")</span>
                 </div>
             </div>
-            <div class="text-right py-2">
-                <form asp-action="Delete" asp-route-id="@tip.Id">
-                    <input type="submit" value="Obriši" class="btn btn-danger" /> &nbsp;
-                </form>
-            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="text-right py-2">
+                    <form asp-action="Delete" asp-route-id="@tip.Id">
+                        <input type="submit" value="Obriši" class="btn btn-danger" /> &nbsp;
+                    </form>
+                </div>
+            }
         </div>
     }
 </div>

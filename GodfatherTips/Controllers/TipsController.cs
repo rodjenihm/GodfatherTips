@@ -10,19 +10,21 @@ using GodfatherTips.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using GodfatherTips.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace GodfatherTips.Controllers
 {
     public class TipsController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-
         public readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
 
-        public TipsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public TipsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
             _dbContext = context;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         // GET: Tips
@@ -82,6 +84,11 @@ namespace GodfatherTips.Controllers
                 };
                 _dbContext.Add(newTip);
                 await _dbContext.SaveChangesAsync();
+                //var vipUsers = await _userManager.Users.Where(u => u.IsVipMember == true).ToListAsync();
+                //foreach (var vipUser in vipUsers)
+                //{
+                //    await _emailSender.SendEmailAsync(vipUser.Email, "Novi tip", $"Admin {user.Nickname} je dodao novi tip.");
+                //}
             }
             return RedirectToAction(nameof(Index));
         }
