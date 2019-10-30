@@ -9,4 +9,4 @@ Zanimljiva funkcionalnost bi bila da se simulira online plaćanje i automatska p
 
 28.10.2019: Prekid razvoja. Prelazi se na android aplikaciju.  
 
-Development of this project is stopped.
+Development of this project is stopped. Client changed his mind and now wants android application instead.
